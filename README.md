@@ -1,59 +1,100 @@
-# Gxmono
+# GX Monorepo
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.8.
+這是一個基於 Angular 20 的 monorepo 專案，包含多個可重用的組件庫。
 
-## Development server
+## 專案結構
 
-To start a local development server, run:
+- `projects/demo/` - 示範應用程式
+- `projects/gx-breadcrumb/` - 麵包屑導航組件庫
+- `projects/shared-utils/` - 共用工具庫
 
-```bash
-ng serve
-```
+## 技術堆疊
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Angular**: 20.1.6
+- **TypeScript**: 5.8.3
+- **RxJS**: 7.8.0
+- **Node.js**: 建議使用 LTS 版本
 
-## Code scaffolding
+## 開發環境需求
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Node.js (LTS)
+- npm 或 yarn
+- Angular CLI 20.1.5
 
-```bash
-ng generate component component-name
-```
+## 安裝與設定
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+\`\`\`bash
+# 安裝依賴
+npm install
 
-```bash
-ng generate --help
-```
+# 啟動開發伺服器
+npm start
 
-## Building
+# 建構專案
+npm run build
 
-To build the project run:
+# 執行測試
+npm test
+\`\`\`
 
-```bash
-ng build
-```
+## 組件庫
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### GX Breadcrumb
 
-## Running unit tests
+麵包屑導航組件，提供簡潔的頁面導航功能。
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+\`\`\`bash
+# 建構 gx-breadcrumb 庫
+ng build gx-breadcrumb
+\`\`\`
 
-```bash
-ng test
-```
+### Shared Utils
 
-## Running end-to-end tests
+包含共用的工具函數和服務。
 
-For end-to-end (e2e) testing, run:
+\`\`\`bash
+# 建構 shared-utils 庫
+ng build shared-utils
+\`\`\`
 
-```bash
-ng e2e
-```
+## 開發指南
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### 新增組件
 
-## Additional Resources
+1. 使用 Angular CLI 生成新組件
+2. 確保遵循專案的程式碼風格
+3. 添加適當的測試
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### 建構和發布
+
+\`\`\`bash
+# 建構所有庫
+ng build gx-breadcrumb
+ng build shared-utils
+
+# 建構 demo 應用
+ng build demo
+\`\`\`
+
+## 版本管理
+
+本專案使用 Changesets 進行版本管理：
+
+\`\`\`bash
+# 添加變更記錄
+npx changeset
+
+# 發布新版本
+npx changeset version
+\`\`\`
+
+## 貢獻指南
+
+1. Fork 本專案
+2. 創建功能分支
+3. 提交變更
+4. 創建 Pull Request
+
+## 授權
+
+[授權信息]
