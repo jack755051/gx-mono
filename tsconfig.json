@@ -5,6 +5,14 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "strict": true,
+    "paths": {
+      "gx-breadcrumb": [
+        "./dist/gx-breadcrumb"
+      ],
+      "shared-utils": [
+        "./dist/shared-utils"
+      ]
+    },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
