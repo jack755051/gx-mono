@@ -1,12 +1,43 @@
 {
-  "name": "gx-breadcrumb",
-  "version": "0.0.1",
+  "name": "@sanring/gx-breadcrumb",
+  "version": "0.0.2",
+  "author": "CharlieTai",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jack755051/gx-mono.git",
+    "directory": "libs/gx-breadcrumb"
+  },
+  "keywords": [
+    "angular",
+    "breadcrumb",
+    "gx-component",
+    "gx-styles",
+    "gx",
+    "component",
+    "library",
+    "ng",
+    "sanring"
+  ],
   "peerDependencies": {
     "@angular/common": "^20.1.6",
-    "@angular/core": "^20.1.6"
+    "@angular/core": "^20.1.6",
+    "@angular/router": "^20.1.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "ng-packagr -p ng-package.json",
+    "prepack": "ng-packagr -p ng-package.json"
+  },
+  "devDependencies": {
+    "@angular/common": "20.1.4",
+    "@angular/core": "20.1.4",
+    "@angular/router": "20.1.4"
+  }
 }

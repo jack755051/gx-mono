@@ -1,10 +1,20 @@
 {
-  "name": "shared-utils",
+  "name": "@sanring/gx-shared-utils",
   "version": "0.0.1",
-  "peerDependencies": {
-    "@angular/common": "^20.1.6",
-    "@angular/core": "^20.1.6"
+  "private": true,
+  "author": "CharlieTai",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jack755051/gx-mono.git",
+    "directory": "libs/gx-shared-utils"
   },
+  "keywords": [
+    "shared",
+    "utilities",
+    "gx",
+    "sanring"
+  ],
   "dependencies": {
     "tslib": "^2.3.0"
   },

@@ -9,6 +9,9 @@
     "test": "ng test"
   },
   "private": true,
+  "workspaces": [
+    "projects/*"
+  ],
   "dependencies": {
     "@angular/common": "^20.1.6",
     "@angular/compiler": "^20.1.6",
