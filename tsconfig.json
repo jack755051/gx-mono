@@ -5,12 +5,13 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "strict": true,
+    "baseUrl": "./",
     "paths": {
       "gx-breadcrumb": [
-        "./dist/gx-breadcrumb"
+        "./dist/gx-breadcrumb/public-api"
       ],
       "shared-utils": [
-        "./dist/shared-utils"
+        "./dist/shared-utils/public-api"
       ]
     },
     "noImplicitOverride": true,
