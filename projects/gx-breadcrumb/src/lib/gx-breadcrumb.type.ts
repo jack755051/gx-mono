@@ -2,18 +2,37 @@ export interface BreadcrumbItem {
   /** 顯示標籤 */
   label: string;
   /** 路由 URL */
-  url: string;
+  url?: string;
   /** 路由參數 */
   params?: Record<string, any>;
   /** 查詢參數 */
   queryParams?: Record<string, any>;
   /** 是否禁用 */
   disabled?: boolean;
-  /** 自定義圖標 */
-  icon?: string;
+  /** 是否可點擊 */
+  clickAble?: boolean;
+  /** 是否為活動狀態 */
+  active?: boolean;
+  /** 圖標名稱 */
+  icon?: IconType;
+  /** 子項目（用於複雜導航結構） */
+  children?: BreadcrumbItem[];
   /** 額外的 CSS 類名 */
   cssClass?: string;
 }
+
+export type IconType =
+  | 'home'
+  | 'folder'
+  | 'file'
+  | 'settings'
+  | 'user'
+  | 'package'
+  | 'database'
+  | 'globe'
+  | 'lock'
+  | 'chevron-right'
+  | 'arrow-right';
 
 export type SeparatorType =
   | 'chevron'      // ›
@@ -24,9 +43,11 @@ export type SeparatorType =
   | 'doubleChevron'; // »
 
 export type BreadcrumbTheme =
-  | 'default'
-  | 'minimal'
   | 'modern'
+  | 'glass'
+  | 'minimal'
+  | 'colorful'
+  | 'default'
   | 'glassmorphism'
   | 'neumorphism'
   | 'gradient';

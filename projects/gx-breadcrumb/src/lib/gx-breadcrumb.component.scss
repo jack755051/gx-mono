@@ -112,12 +112,66 @@
     }
   }
 
-  .breadcrumb-text {
-    white-space: nowrap;
+  .breadcrumb-content {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--bc-spacing-xs);
+    padding: var(--bc-spacing-xs) var(--bc-spacing-sm);
+    border-radius: var(--bc-radius);
 
     &.current {
       color: var(--bc-text);
       font-weight: 600;
+    }
+
+    &.disabled {
+      color: var(--bc-text-light);
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  .breadcrumb-icon {
+    width: 1.125em;
+    height: 1.125em;
+    flex-shrink: 0;
+    transition: var(--bc-transition);
+  }
+
+  // 狀態修飾類
+  .breadcrumb-item {
+    &.is-disabled {
+      .breadcrumb-link,
+      .breadcrumb-content {
+        color: var(--bc-text-light);
+        cursor: not-allowed;
+        opacity: 0.5;
+
+        &:hover {
+          background: none;
+          transform: none;
+          color: var(--bc-text-light);
+        }
+      }
+    }
+
+    &.is-clickable {
+      .breadcrumb-link:hover {
+        .breadcrumb-icon {
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    &.is-current {
+      .breadcrumb-content {
+        color: var(--bc-text);
+        font-weight: 600;
+      }
+    }
+
+    &.is-home .breadcrumb-icon {
+      color: var(--bc-primary);
     }
   }
 
@@ -128,10 +182,9 @@
     font-size: 0.9em;
   }
 
-  .home-icon {
-    width: 1em;
-    height: 1em;
-    flex-shrink: 0;
+  .breadcrumb-text {
+    white-space: nowrap;
+    user-select: none;
   }
 }
 
@@ -213,38 +266,167 @@
   }
 }
 
-// Glassmorphism 主題
-.breadcrumb-container[data-theme="glassmorphism"] {
+// Glass 主題 (從 React 版本移植)
+.breadcrumb-container[data-theme="glass"] {
   .breadcrumb {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
+    background: linear-gradient(to right,
+      rgba(59, 130, 246, 0.2) 0%,
+      rgba(147, 51, 234, 0.2) 100%);
+    backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     padding: var(--bc-spacing) var(--bc-spacing-lg);
     border-radius: var(--bc-radius-xl);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   }
 
-  .breadcrumb-link {
-    color: rgba(0, 0, 0, 0.8);
+  .breadcrumb-link,
+  .breadcrumb-content {
+    color: rgba(255, 255, 255, 0.8);
     border-radius: var(--bc-radius-lg);
 
     &:hover {
       background: rgba(255, 255, 255, 0.25);
       backdrop-filter: blur(5px);
-      color: var(--bc-primary-dark);
+      color: white;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    }
+
+    &.current {
+      color: white;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      padding: var(--bc-spacing-xs) var(--bc-spacing-sm);
+      border-radius: var(--bc-radius-lg);
     }
   }
 
   .breadcrumb-separator {
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0 var(--bc-spacing);
+    font-size: 1.1em;
   }
 
-  .breadcrumb-item.is-current .breadcrumb-text {
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
-    padding: var(--bc-spacing-xs) var(--bc-spacing-sm);
+  .breadcrumb-icon {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  }
+}
+
+// Colorful 主題 (從 React 版本移植)
+.breadcrumb-container[data-theme="colorful"] {
+  .breadcrumb {
+    background: linear-gradient(135deg,
+      rgba(147, 51, 234, 0.05) 0%,
+      rgba(236, 72, 153, 0.05) 33%,
+      rgba(59, 130, 246, 0.05) 100%);
+    padding: var(--bc-spacing) var(--bc-spacing-lg);
+    border-radius: var(--bc-radius-xl);
+    box-shadow: var(--bc-shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .breadcrumb-link {
+    color: var(--bc-secondary);
     border-radius: var(--bc-radius-lg);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: transparent;
+      background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      transform: scale(1.1);
+    }
+  }
+
+  .breadcrumb-content.current {
+    color: transparent;
+    background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 700;
+  }
+
+  .breadcrumb-separator {
+    color: var(--bc-text-light);
+    animation: pulse 2s infinite;
+  }
+
+  .breadcrumb-icon {
+    width: 1.25em;
+    height: 1.25em;
+  }
+}
+
+// 增強 Modern 主題以匹配 React 版本
+.breadcrumb-container[data-theme="modern"] {
+  .breadcrumb {
+    background: white;
+    padding: var(--bc-spacing) var(--bc-spacing-lg);
+    border-radius: var(--bc-radius-lg);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--bc-border);
+  }
+
+  .breadcrumb-link {
+    color: var(--bc-secondary);
+    padding: var(--bc-spacing-xs) var(--bc-spacing-sm);
+    border-radius: var(--bc-radius-md);
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background: var(--bc-primary);
+      color: white;
+      box-shadow: var(--bc-shadow-md);
+      transform: translateY(-2px) scale(1.05);
+    }
+  }
+
+  .breadcrumb-content.current {
+    background: var(--bc-primary);
+    color: white;
+    padding: var(--bc-spacing-xs) var(--bc-spacing-sm);
+    border-radius: var(--bc-radius-md);
     font-weight: 600;
+  }
+
+  .breadcrumb-separator {
+    color: var(--bc-text-light);
+    margin: 0 var(--bc-spacing-sm);
+  }
+}
+
+// 增強 Minimal 主題
+.breadcrumb-container[data-theme="minimal"] {
+  .breadcrumb {
+    background: var(--bc-surface);
+    padding: var(--bc-spacing) var(--bc-spacing-md);
+    border-radius: var(--bc-radius-md);
+  }
+
+  .breadcrumb-link {
+    padding: var(--bc-spacing-xs);
+    border-radius: 0;
+    color: var(--bc-text-muted);
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: transparent;
+      color: var(--bc-text);
+      border-bottom: 2px solid var(--bc-primary);
+      transform: none;
+    }
+  }
+
+  .breadcrumb-content.current {
+    color: var(--bc-text);
+    font-weight: 500;
+  }
+
+  .breadcrumb-separator {
+    color: var(--bc-text-muted);
+    margin: 0 var(--bc-spacing-sm);
   }
 }
 
@@ -352,7 +534,7 @@
   }
 }
 
-// ===== 動畫效果 =====
+// ===== 動畫效果增強 =====
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -364,15 +546,76 @@
   }
 }
 
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .breadcrumb-item {
-  animation: fadeInUp 0.3s ease-out;
+  animation: slideInRight 0.3s ease-out;
 }
 
 // 為每個項目添加延遲動畫
 @for $i from 1 through 10 {
   .breadcrumb-item:nth-child(#{$i}) {
-    animation-delay: #{($i - 1) * 0.1s};
+    animation-delay: #{($i - 1) * 0.05s};
   }
+}
+
+// Hover 動畫增強
+.breadcrumb-link {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+}
+
+// 特殊動畫效果
+.breadcrumb-container[data-theme="colorful"] {
+  .breadcrumb-link:hover {
+    animation: colorShift 0.3s ease-in-out;
+  }
+}
+
+@keyframes colorShift {
+  0% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(180deg); }
+  100% { filter: hue-rotate(360deg); }
 }
 
 // ===== 可訪問性增強 =====

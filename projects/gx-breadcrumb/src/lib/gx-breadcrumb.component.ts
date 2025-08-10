@@ -1,36 +1,50 @@
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, EventEmitter, inject, Input, Output } from '@angular/core';
-import { BreadcrumbItem, BreadcrumbSize, BreadcrumbTheme, GxBreadcrumbService, SeparatorType } from '../public-api';
+import { Component, computed, effect, EventEmitter, inject, Input, Output, signal } from '@angular/core';
+import { BreadcrumbItem, GxBreadcrumbService, SeparatorType, BreadcrumbTheme, BreadcrumbSize, IconType } from '../public-api';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'lib-gx-breadcrumb',
   standalone: true,
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule, RouterModule, LucideAngularModule],
   templateUrl: './gx-breadcrumb.component.html',
   styleUrls: ['./gx-breadcrumb.component.scss']
 })
 export class GxBreadcrumbComponent {
   /** 分隔符類型 */
   @Input() separator: SeparatorType = 'chevron';
+
   /** 主題風格 */
-  @Input() theme: BreadcrumbTheme = 'default';
+  @Input() theme: BreadcrumbTheme = 'modern';
+
   /** 尺寸大小 */
   @Input() size: BreadcrumbSize = 'md';
+
   /** 是否顯示首頁圖標 */
   @Input() showHomeIcon: boolean = true;
+
   /** 首頁標籤文字 */
   @Input() homeLabel: string = '首頁';
+
   /** 首頁路由路徑 */
   @Input() homeRoute: string = '/';
+
   /** 最大顯示項目數量（超過則用省略號） */
   @Input() maxItems: number = 0;
+
   /** 導航事件 */
   @Output() navigate = new EventEmitter<BreadcrumbItem>();
 
+  /** Hover 事件 */
+  @Output() itemHover = new EventEmitter<{item: BreadcrumbItem, isHovered: boolean}>();
+
   private _service = inject(GxBreadcrumbService);
   private _router = inject(Router);
+
+  // Hover 狀態管理
+  private hoveredItem = signal<BreadcrumbItem | null>(null);
 
   readonly breadCrumbs = toSignal(this._service.breadcrumbs$, {
     initialValue: [] as BreadcrumbItem[]
@@ -45,7 +59,9 @@ export class GxBreadcrumbComponent {
     const homeItem: BreadcrumbItem = {
       label: this.homeLabel,
       url: this.homeRoute,
-      params: {}
+      params: {},
+      icon: 'home',
+      clickAble: true
     };
 
     // 確保首頁始終存在
@@ -59,7 +75,9 @@ export class GxBreadcrumbComponent {
       const ellipsisItem: BreadcrumbItem = {
         label: '...',
         url: '',
-        params: {}
+        params: {},
+        clickAble: false,
+        disabled: true
       };
       return [...firstItems, ellipsisItem, ...lastItems];
     }
@@ -73,8 +91,6 @@ export class GxBreadcrumbComponent {
     // console.log('breadcrumbs changed:', items);
   });
 
-  constructor() {}
-
   getSeparatorSymbol(): string {
     const symbols = {
       chevron: '›',
@@ -87,15 +103,42 @@ export class GxBreadcrumbComponent {
     return symbols[this.separator] ?? '›';
   }
 
-  onItemClick(item: BreadcrumbItem): void {
-    if (item.url && item.label !== '...') {
-      // 發出導航事件
-      this.navigate.emit(item);
+  getSeparatorContent(): string {
+    // 根據主題返回不同的分隔符內容
+    switch (this.theme) {
+      case 'glass':
+        return '/';
+      case 'minimal':
+        return '·';
+      case 'colorful':
+        return '›';
+      default:
+        return this.getSeparatorSymbol();
+    }
+  }
 
-      // 執行路由跳轉
+  onItemClick(item: BreadcrumbItem): void {
+    if (item.disabled || item.clickAble === false) {
+      return;
+    }
+
+    // 發出導航事件
+    this.navigate.emit(item);
+
+    // 執行路由跳轉
+    if (item.url) {
       this._router.navigate([item.url], {
         queryParams: item.params
       });
     }
+  }
+
+  onItemHover(item: BreadcrumbItem, isHovered: boolean): void {
+    this.hoveredItem.set(isHovered ? item : null);
+    this.itemHover.emit({ item, isHovered });
+  }
+
+  isItemHovered(item: BreadcrumbItem): boolean {
+    return this.hoveredItem() === item;
   }
 }

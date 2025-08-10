@@ -1,5 +1,11 @@
 # @sanring/gx-breadcrumb
 
+## 1.0.5
+
+### Patch Changes
+
+- add : second version
+
 ## 1.0.4
 
 ### Patch Changes

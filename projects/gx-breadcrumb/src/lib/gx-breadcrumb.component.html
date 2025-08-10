@@ -1,35 +1,47 @@
-<nav
-  class="breadcrumb-container"
-  [attr.data-theme]="theme"
-  [attr.data-size]="size"
-  aria-label="breadcrumb">
+<nav class="breadcrumb-container"
+     [attr.data-theme]="theme"
+     [attr.data-size]="size"
+     aria-label="breadcrumb">
   <ol class="breadcrumb">
-    @for(item of finalDisplayItems(); track item.url; let isLast = $last; let index = $index) {
+    @for(item of finalDisplayItems(); track item.url || item.label; let isLast = $last; let index = $index) {
       <li class="breadcrumb-item"
-          [class.is-current]="isLast"
-          [class.is-home]="index === 0">
+          [class.is-current]="isLast || item.active"
+          [class.is-home]="index === 0"
+          [class.is-disabled]="item.disabled"
+          [class.is-clickable]="!isLast && !item.disabled && item.clickAble !== false">
 
-        @if(isLast) {
-          <!-- 當前頁面，不可點擊 -->
-          <span class="breadcrumb-text current">{{ item.label }}</span>
+        @if(isLast || item.active || item.disabled || item.clickAble === false) {
+          <!-- 當前頁面或禁用項目，不可點擊 -->
+          <span class="breadcrumb-content"
+                [class.current]="isLast || item.active"
+                [class.disabled]="item.disabled">
+            @if(item.icon) {
+              <lucide-icon [name]="item.icon" class="breadcrumb-icon"></lucide-icon>
+            } @else if(index === 0 && showHomeIcon && !item.icon) {
+              <lucide-icon name="home" class="breadcrumb-icon home-icon"></lucide-icon>
+            }
+            <span class="breadcrumb-text">{{ item.label }}</span>
+          </span>
         } @else {
           <!-- 可點擊的導航項目 -->
           <button type="button"
                   class="breadcrumb-link"
                   (click)="onItemClick(item)"
-                  [attr.aria-label]="'導航到 ' + item.label">
-            @if(index === 0 && showHomeIcon) {
-              <svg class="home-icon" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
-              </svg>
+                  (mouseenter)="onItemHover(item, true)"
+                  (mouseleave)="onItemHover(item, false)"
+                  [attr.aria-label]="'導航到 ' + item.label"
+                  [disabled]="item.disabled">
+            @if(item.icon) {
+              <lucide-icon [name]="item.icon" class="breadcrumb-icon"></lucide-icon>
+            } @else if(index === 0 && showHomeIcon && !item.icon) {
+              <lucide-icon name="home" class="breadcrumb-icon home-icon"></lucide-icon>
             }
             <span class="breadcrumb-text">{{ item.label }}</span>
           </button>
         }
-
-        @if(!isLast) {
+        @if(!isLast && !item.active) {
           <span class="breadcrumb-separator" aria-hidden="true">
-            {{ getSeparatorSymbol() }}
+            {{ getSeparatorContent() }}
           </span>
         }
       </li>
