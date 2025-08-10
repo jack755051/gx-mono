@@ -7,11 +7,11 @@
     "strict": true,
     "baseUrl": "./",
     "paths": {
-      "gx-breadcrumb": [
-        "./dist/gx-breadcrumb/public-api"
+      "@sanring/gx-breadcrumb": [
+        "./dist/gx-breadcrumb"
       ],
-      "shared-utils": [
-        "./dist/shared-utils/public-api"
+      "@sanring/shared-utils": [
+        "./dist/shared-utils"
       ]
     },
     "noImplicitOverride": true,

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { GxBreadcrumbComponent } from '../../../gx-breadcrumb/src/public-api';
+import { GxBreadcrumbComponent } from '@sanring/gx-breadcrumb';
 
 @Component({
   selector: 'app-root',

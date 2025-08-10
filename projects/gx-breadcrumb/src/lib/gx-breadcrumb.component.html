@@ -1,10 +1,38 @@
-<nav class="breadcrumb-container" aria-label="breadcrumb">
+<nav
+  class="breadcrumb-container"
+  [attr.data-theme]="theme"
+  [attr.data-size]="size"
+  aria-label="breadcrumb">
   <ol class="breadcrumb">
-    @for(item of displayItems();track $index;let l = $last) {
-      <li>{{ item.label }}</li>
-      @if(!l) {
-          <span> {{ getSeparatorSymbol() }}</span>
+    @for(item of finalDisplayItems(); track item.url; let isLast = $last; let index = $index) {
+      <li class="breadcrumb-item"
+          [class.is-current]="isLast"
+          [class.is-home]="index === 0">
+
+        @if(isLast) {
+          <!-- 當前頁面，不可點擊 -->
+          <span class="breadcrumb-text current">{{ item.label }}</span>
+        } @else {
+          <!-- 可點擊的導航項目 -->
+          <button type="button"
+                  class="breadcrumb-link"
+                  (click)="onItemClick(item)"
+                  [attr.aria-label]="'導航到 ' + item.label">
+            @if(index === 0 && showHomeIcon) {
+              <svg class="home-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+              </svg>
+            }
+            <span class="breadcrumb-text">{{ item.label }}</span>
+          </button>
         }
+
+        @if(!isLast) {
+          <span class="breadcrumb-separator" aria-hidden="true">
+            {{ getSeparatorSymbol() }}
+          </span>
+        }
+      </li>
     }
   </ol>
 </nav>
