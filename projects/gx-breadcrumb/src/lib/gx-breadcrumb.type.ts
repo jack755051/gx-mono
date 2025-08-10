@@ -54,19 +54,19 @@ export type BreadcrumbTheme =
 
 export type BreadcrumbSize = 'sm' | 'md' | 'lg';
 
-export interface BreadcrumbConfig {
-  /** 主題風格 */
-  theme?: BreadcrumbTheme;
-  /** 尺寸 */
-  size?: BreadcrumbSize;
-  /** 分隔符類型 */
-  separator?: SeparatorType;
-  /** 是否顯示首頁圖標 */
-  showHomeIcon?: boolean;
-  /** 首頁標籤 */
-  homeLabel?: string;
-  /** 首頁路由 */
-  homeRoute?: string;
-  /** 最大顯示項目數量 */
-  maxItems?: number;
-}
+// export interface BreadcrumbConfig {
+//   /** 主題風格 */
+//   theme?: BreadcrumbTheme;
+//   /** 尺寸 */
+//   size?: BreadcrumbSize;
+//   /** 分隔符類型 */
+//   separator?: SeparatorType;
+//   /** 是否顯示首頁圖標 */
+//   showHomeIcon?: boolean;
+//   /** 首頁標籤 */
+//   homeLabel?: string;
+//   /** 首頁路由 */
+//   homeRoute?: string;
+//   /** 最大顯示項目數量 */
+//   maxItems?: number;
+// }
