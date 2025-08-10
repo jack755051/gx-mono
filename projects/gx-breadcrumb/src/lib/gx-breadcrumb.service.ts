@@ -10,7 +10,7 @@ export interface BreadcrumbConfig {
   /** 是否啟用調試模式 */
   debug?: boolean;
   /** 預設圖標 */
-  defaultIcon?: IconType;
+  defaultIcon?: IconType | null;
   /** URL 正規化選項 */
   urlNormalization?: {
     removeTrailingSlash?: boolean;
@@ -44,7 +44,7 @@ export class GxBreadcrumbService implements OnDestroy {
     this.config = {
       autoTrack: true,
       debug: false,
-      defaultIcon: undefined,
+      defaultIcon: null,
       urlNormalization: {
         removeTrailingSlash: true,
         lowercase: false
