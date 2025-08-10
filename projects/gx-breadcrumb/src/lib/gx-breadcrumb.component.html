@@ -16,9 +16,9 @@
                 [class.current]="isLast || item.active"
                 [class.disabled]="item.disabled">
             @if(item.icon) {
-              <lucide-icon [name]="item.icon" class="breadcrumb-icon"></lucide-icon>
+              <lucide-icon [img]="getIconInstance(item.icon)" class="breadcrumb-icon"></lucide-icon>
             } @else if(index === 0 && showHomeIcon && !item.icon) {
-              <lucide-icon name="home" class="breadcrumb-icon home-icon"></lucide-icon>
+              <lucide-icon [img]="HomeIcon" class="breadcrumb-icon home-icon"></lucide-icon>
             }
             <span class="breadcrumb-text">{{ item.label }}</span>
           </span>
@@ -32,13 +32,14 @@
                   [attr.aria-label]="'導航到 ' + item.label"
                   [disabled]="item.disabled">
             @if(item.icon) {
-              <lucide-icon [name]="item.icon" class="breadcrumb-icon"></lucide-icon>
+              <lucide-icon [img]="getIconInstance(item.icon)" class="breadcrumb-icon"></lucide-icon>
             } @else if(index === 0 && showHomeIcon && !item.icon) {
-              <lucide-icon name="home" class="breadcrumb-icon home-icon"></lucide-icon>
+              <lucide-icon [img]="HomeIcon" class="breadcrumb-icon home-icon"></lucide-icon>
             }
             <span class="breadcrumb-text">{{ item.label }}</span>
           </button>
         }
+
         @if(!isLast && !item.active) {
           <span class="breadcrumb-separator" aria-hidden="true">
             {{ getSeparatorContent() }}

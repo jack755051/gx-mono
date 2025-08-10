@@ -3,17 +3,34 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, effect, EventEmitter, inject, Input, Output, signal, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { BreadcrumbItem, GxBreadcrumbService, SeparatorType, BreadcrumbTheme, BreadcrumbSize, IconType } from '../public-api';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { LucideAngularModule } from 'lucide-angular';
+import { LucideAngularModule, Home, Folder, File, Settings, User, Package, Database, Globe, Lock, ChevronRight, ArrowRight } from 'lucide-angular';
 
 @Component({
   selector: 'lib-gx-breadcrumb',
   standalone: true,
-  imports: [CommonModule, RouterModule, LucideAngularModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    LucideAngularModule
+  ],
   templateUrl: './gx-breadcrumb.component.html',
   styleUrls: ['./gx-breadcrumb.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush // 性能優化
 })
 export class GxBreadcrumbComponent implements OnDestroy {
+  // ===== 圖示引用 =====
+  readonly HomeIcon = Home;
+  readonly FolderIcon = Folder;
+  readonly FileIcon = File;
+  readonly SettingsIcon = Settings;
+  readonly UserIcon = User;
+  readonly PackageIcon = Package;
+  readonly DatabaseIcon = Database;
+  readonly GlobeIcon = Globe;
+  readonly LockIcon = Lock;
+  readonly ChevronRightIcon = ChevronRight;
+  readonly ArrowRightIcon = ArrowRight;
+
   // ===== 輸入屬性 =====
   /** 分隔符類型 */
   @Input() separator: SeparatorType = 'chevron';
@@ -139,6 +156,29 @@ export class GxBreadcrumbComponent implements OnDestroy {
     };
 
     return themeSpecificSeparators[this.theme] || this.getSeparatorSymbol();
+  }
+
+  /**
+   * 取得圖示實例
+   */
+  getIconInstance(iconName?: IconType) {
+    if (!iconName) return null;
+
+    const iconMap: Record<IconType, any> = {
+      'home': this.HomeIcon,
+      'folder': this.FolderIcon,
+      'file': this.FileIcon,
+      'settings': this.SettingsIcon,
+      'user': this.UserIcon,
+      'package': this.PackageIcon,
+      'database': this.DatabaseIcon,
+      'globe': this.GlobeIcon,
+      'lock': this.LockIcon,
+      'chevron-right': this.ChevronRightIcon,
+      'arrow-right': this.ArrowRightIcon
+    };
+
+    return iconMap[iconName] || null;
   }
 
   /**

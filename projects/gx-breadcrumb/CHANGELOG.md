@@ -1,5 +1,11 @@
 # @sanring/gx-breadcrumb
 
+## 1.0.8
+
+### Patch Changes
+
+- modify : optimization service defalut icon problem
+
 ## 1.0.7
 
 ### Patch Changes

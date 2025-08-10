@@ -266,45 +266,79 @@
   }
 }
 
-// Glass 主題 (從 React 版本移植)
+// ===== 主題樣式 (匹配 React 版本) =====
+
+// Modern 主題 - 'bg-white rounded-lg px-6 py-4 shadow-sm border border-gray-200'
+.breadcrumb-container[data-theme="modern"] {
+  .breadcrumb {
+    background: #ffffff;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+  }
+
+  .breadcrumb-item-content {
+    color: #4b5563; // text-gray-600
+
+    &.is-disabled {
+      color: #9ca3af; // text-gray-400
+      cursor: not-allowed;
+    }
+
+    &.is-current {
+      color: #111827; // text-gray-900
+      font-weight: 600;
+    }
+
+    &.is-clickable:hover {
+      color: #2563eb; // text-blue-600
+      transform: scale(1.05);
+    }
+  }
+
+  .separator-icon {
+    color: #9ca3af; // text-gray-400
+    margin: 0 0.5rem;
+  }
+}
+
+// Glass 主題 - 'bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-md rounded-xl px-6 py-4 border border-white/20 shadow-xl'
 .breadcrumb-container[data-theme="glass"] {
   .breadcrumb {
     background: linear-gradient(to right,
-      rgba(59, 130, 246, 0.2) 0%,
-      rgba(147, 51, 234, 0.2) 100%);
-    backdrop-filter: blur(16px);
+      rgba(59, 130, 246, 0.2),
+      rgba(147, 51, 234, 0.2));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: var(--bc-spacing) var(--bc-spacing-lg);
-    border-radius: var(--bc-radius-xl);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
 
-  .breadcrumb-link,
-  .breadcrumb-content {
-    color: rgba(255, 255, 255, 0.8);
-    border-radius: var(--bc-radius-lg);
+  .breadcrumb-item-content {
+    color: rgba(255, 255, 255, 0.8); // text-white/80
 
-    &:hover {
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(5px);
-      color: white;
+    &.is-disabled {
+      color: #9ca3af; // text-gray-400
+      cursor: not-allowed;
+    }
+
+    &.is-current {
+      color: #ffffff; // text-white
+      font-weight: 600;
+    }
+
+    &.is-clickable:hover {
+      color: #ffffff; // text-white
       filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
     }
-
-    &.current {
-      color: white;
-      font-weight: 600;
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(10px);
-      padding: var(--bc-spacing-xs) var(--bc-spacing-sm);
-      border-radius: var(--bc-radius-lg);
-    }
   }
 
-  .breadcrumb-separator {
-    color: rgba(255, 255, 255, 0.4);
-    margin: 0 var(--bc-spacing);
-    font-size: 1.1em;
+  .separator-text {
+    color: rgba(255, 255, 255, 0.4); // text-white/40
+    margin: 0 0.75rem;
   }
 
   .breadcrumb-icon {
@@ -312,121 +346,85 @@
   }
 }
 
-// Colorful 主題 (從 React 版本移植)
+// Minimal 主題 - 'bg-gray-50 rounded-md px-4 py-3'
+.breadcrumb-container[data-theme="minimal"] {
+  .breadcrumb {
+    background: #f9fafb; // bg-gray-50
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+  }
+
+  .breadcrumb-item-content {
+    color: #6b7280; // text-gray-500
+
+    &.is-disabled {
+      color: #9ca3af; // text-gray-400
+      cursor: not-allowed;
+    }
+
+    &.is-current {
+      color: #111827; // text-gray-900
+      font-weight: 500;
+    }
+
+    &.is-clickable:hover {
+      color: #111827; // text-gray-900
+    }
+  }
+
+  .separator-text {
+    color: #9ca3af; // text-gray-400
+    margin: 0 0.5rem;
+  }
+}
+
+// Colorful 主題 - 'bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 rounded-2xl px-6 py-4 shadow-lg border border-white/50'
 .breadcrumb-container[data-theme="colorful"] {
   .breadcrumb {
-    background: linear-gradient(135deg,
-      rgba(147, 51, 234, 0.05) 0%,
-      rgba(236, 72, 153, 0.05) 33%,
-      rgba(59, 130, 246, 0.05) 100%);
-    padding: var(--bc-spacing) var(--bc-spacing-lg);
-    border-radius: var(--bc-radius-xl);
-    box-shadow: var(--bc-shadow-lg);
+    background: linear-gradient(to bottom right,
+      #faf5ff,
+      #fdf2f8,
+      #eff6ff); // from-purple-50 via-pink-50 to-blue-50
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.5);
   }
 
-  .breadcrumb-link {
-    color: var(--bc-secondary);
-    border-radius: var(--bc-radius-lg);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  .breadcrumb-item-content {
+    color: #4b5563; // text-gray-600
 
-    &:hover {
-      color: transparent;
-      background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+    &.is-disabled {
+      color: #9ca3af; // text-gray-400
+      cursor: not-allowed;
+    }
+
+    &.is-current {
+      background: linear-gradient(to right, #7c3aed, #ec4899); // from-purple-600 to-pink-600
       background-clip: text;
       -webkit-background-clip: text;
+      color: transparent;
+      font-weight: 700;
+    }
+
+    &.is-clickable:hover {
+      background: linear-gradient(to right, #2563eb, #7c3aed); // from-blue-600 to-purple-600
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
       transform: scale(1.1);
     }
   }
 
-  .breadcrumb-content.current {
-    color: transparent;
-    background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    font-weight: 700;
-  }
-
-  .breadcrumb-separator {
-    color: var(--bc-text-light);
+  .separator-icon {
+    color: #9ca3af; // text-gray-400
+    margin: 0 0.5rem;
     animation: pulse 2s infinite;
   }
 
-  .breadcrumb-icon {
-    width: 1.25em;
-    height: 1.25em;
-  }
-}
-
-// 增強 Modern 主題以匹配 React 版本
-.breadcrumb-container[data-theme="modern"] {
-  .breadcrumb {
-    background: white;
-    padding: var(--bc-spacing) var(--bc-spacing-lg);
-    border-radius: var(--bc-radius-lg);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    border: 1px solid var(--bc-border);
-  }
-
-  .breadcrumb-link {
-    color: var(--bc-secondary);
-    padding: var(--bc-spacing-xs) var(--bc-spacing-sm);
-    border-radius: var(--bc-radius-md);
-    font-weight: 500;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-    &:hover {
-      background: var(--bc-primary);
-      color: white;
-      box-shadow: var(--bc-shadow-md);
-      transform: translateY(-2px) scale(1.05);
-    }
-  }
-
-  .breadcrumb-content.current {
-    background: var(--bc-primary);
-    color: white;
-    padding: var(--bc-spacing-xs) var(--bc-spacing-sm);
-    border-radius: var(--bc-radius-md);
-    font-weight: 600;
-  }
-
-  .breadcrumb-separator {
-    color: var(--bc-text-light);
-    margin: 0 var(--bc-spacing-sm);
-  }
-}
-
-// 增強 Minimal 主題
-.breadcrumb-container[data-theme="minimal"] {
-  .breadcrumb {
-    background: var(--bc-surface);
-    padding: var(--bc-spacing) var(--bc-spacing-md);
-    border-radius: var(--bc-radius-md);
-  }
-
-  .breadcrumb-link {
-    padding: var(--bc-spacing-xs);
-    border-radius: 0;
-    color: var(--bc-text-muted);
-    transition: all 0.3s ease;
-
-    &:hover {
-      background-color: transparent;
-      color: var(--bc-text);
-      border-bottom: 2px solid var(--bc-primary);
-      transform: none;
-    }
-  }
-
-  .breadcrumb-content.current {
-    color: var(--bc-text);
-    font-weight: 500;
-  }
-
-  .breadcrumb-separator {
-    color: var(--bc-text-muted);
-    margin: 0 var(--bc-spacing-sm);
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
   }
 }
 
