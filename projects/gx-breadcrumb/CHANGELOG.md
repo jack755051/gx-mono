@@ -1,5 +1,11 @@
 # @sanring/gx-breadcrumb
 
+## 1.0.7
+
+### Patch Changes
+
+- add : build third version && fix home show duplicate
+
 ## 1.0.5
 
 ### Patch Changes
